@@ -34,3 +34,5 @@ _testmain.go
 /output
 *.local.yml
 .env
+biz/router/dist/
+temp/
