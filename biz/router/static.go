@@ -25,7 +25,7 @@ func RegisterStatic(r *server.Hertz) {
 		log.Fatal("Failed to get current working directory:", err)
 	}
 
-	tempDir := filepath.Join(cwd, "temp")
+	tempDir := filepath.Join(cwd, "tmp")
 	// Create the directory if it doesn't exist
 	if err := os.MkdirAll(tempDir, 0755); err != nil {
 		log.Fatal("Failed to create temp directory:", err)
@@ -40,7 +40,7 @@ func RegisterStatic(r *server.Hertz) {
 
 	// Configure Hertz to serve files from the extracted directory
 	r.StaticFS("/", &app.FS{
-		Root:        "./temp",
+		Root:        "./tmp",
 		PathRewrite: app.NewPathSlashesStripper(1),
 		PathNotFound: func(_ context.Context, ctx *app.RequestContext) {
 			// For SPA - serve index.html for any unknown routes
@@ -62,7 +62,7 @@ func RegisterStatic(r *server.Hertz) {
 
 	// Assets directory still served normally
 	r.StaticFS("assets", &app.FS{
-		Root:        "./temp/assets",
+		Root:        "./tmp/assets",
 		PathRewrite: app.NewPathSlashesStripper(1),
 		PathNotFound: func(_ context.Context, ctx *app.RequestContext) {
 			ctx.JSON(consts.StatusNotFound, "The requested resource does not exist")
