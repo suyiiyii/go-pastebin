@@ -14,14 +14,14 @@ import (
 // @router /posts/{id} [GET]
 func GetPost(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req post.GetPostRequest
+	var req post.GetPostReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusBadRequest, err)
 		return
 	}
 
-	resp := &post.GetPostResponse{}
+	resp := &post.GetPostResp{}
 	resp, err = service.NewGetPostService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusInternalServerError, err)
@@ -35,14 +35,14 @@ func GetPost(ctx context.Context, c *app.RequestContext) {
 // @router /posts [GET]
 func ListPosts(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req post.ListPostsRequest
+	var req post.ListPostsReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusBadRequest, err)
 		return
 	}
 
-	resp := &post.ListPostsResponse{}
+	resp := &post.ListPostsResp{}
 	resp, err = service.NewListPostsService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusInternalServerError, err)
@@ -56,14 +56,14 @@ func ListPosts(ctx context.Context, c *app.RequestContext) {
 // @router /posts [POST]
 func CreatePost(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req post.CreatePostRequest
+	var req post.CreatePostReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusBadRequest, err)
 		return
 	}
 
-	resp := &post.CreatePostResponse{}
+	resp := &post.CreatePostResp{}
 	resp, err = service.NewCreatePostService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusInternalServerError, err)
