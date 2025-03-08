@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package pastebin;
+
+option go_package = "pastebin/post";
+
+import "api.proto";
+
+service Pastebin {
+    rpc GetPost(GetPostRequest) returns (GetPostResponse) {
+        option (api.get) = "/posts/{id}";
+    } 
+    rpc ListPosts(ListPostsRequest) returns (ListPostsResponse) {
+        option (api.get) = "/posts"; 
+    }
+    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {
+        option (api.post) = "/posts"; 
+    }
+}
+
+message Post {
+    string id = 1  [(api.body)="id"];
+    string title = 2 [(api.body)="title"];
+    string content = 3 [(api.body)="content"];
+    string author = 4 [(api.body)="author"];
+    int64 created_at = 5 [(api.body)="created_at"];
+}
+
+message GetPostRequest {
+    string id = 1 [(api.path)="id"];
+}
+
+message GetPostResponse {
+    Post post = 1;
+}
+
+message ListPostsRequest {
+    int32 page = 1 [(api.query)="page"];
+    int32 size = 2 [(api.query)="size"];
+}
+message ListPostsResponse {
+    repeated Post posts = 1; 
+}
+
+message CreatePostRequest {
+    Post post = 1 [(api.body)="post"];
+}
+message CreatePostResponse {
+    Post post = 1; 
+}
