@@ -16,7 +16,8 @@ var c = conf.GetConf()
 
 func main() {
 	// connect to mysql manually to check and create database
-	dsn := "%s:%s@tcp(%s:%s)/?charset=utf8mb4&parseTime=True&loc=Local"
+	//dsn := "%s:%s@tcp(%s:%s)/?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "%s:%s@tcp(%s:%s)/?charset=utf8mb4&parseTime=True&loc=Local&tls=true"
 	db, err := gorm.Open(mysqldb.Open(fmt.Sprintf(dsn, c.MySQL.Username, c.MySQL.Password, c.MySQL.Host, c.MySQL.Port)),
 		&gorm.Config{
 			PrepareStmt:            true,
