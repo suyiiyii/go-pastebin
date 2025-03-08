@@ -6,6 +6,12 @@ import (
 	"context"
 	"os"
 
+	"pastebin/biz/dal"
+	"pastebin/biz/dal/mysql"
+	"pastebin/biz/dal/query"
+	"pastebin/biz/router"
+	"pastebin/conf"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -17,15 +23,13 @@ import (
 	"github.com/hertz-contrib/logger/accesslog"
 	hertzlogrus "github.com/hertz-contrib/logger/logrus"
 	"github.com/hertz-contrib/pprof"
-	"pastebin/biz/router"
-	"pastebin/conf"
 )
 
 func main() {
 	// use `go run cmd/gorm/main.go` to migrate the database
-	// dal.Init()
+	dal.Init()
 	// use `go run cmd/gorm_gen/main.go` to generate the code
-	// query.SetDefault(mysql.DB)
+	query.SetDefault(mysql.DB)
 	address := conf.GetConf().Hertz.Address
 	h := server.New(server.WithHostPorts(address))
 

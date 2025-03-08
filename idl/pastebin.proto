@@ -8,7 +8,7 @@ import "api.proto";
 
 service Pastebin {
     rpc GetPost(GetPostReq) returns (GetPostResp) {
-        option (api.get) = "/posts/{id}";
+        option (api.get) = "/posts/*id";
     } 
     rpc ListPosts(ListPostsReq) returns (ListPostsResp) {
         option (api.get) = "/posts"; 
