@@ -44,8 +44,8 @@ const CreatePost: FC = () => {
       const data = await response.json();
       message.success('Post created successfully!');
       
-      // Navigate to view the created post
-      navigate(`/posts/${data.id}`);
+      // Navigate to view the created post using the correct response structure
+      navigate(`/posts/${data.post.id}`);
     } catch (error) {
       console.error('Error creating post:', error);
       message.error('Failed to create post. Please try again.');

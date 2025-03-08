@@ -2,6 +2,7 @@ package post
 
 import (
 	"context"
+	"math/rand"
 
 	"pastebin/biz/dal/model"
 	"pastebin/biz/dal/query"
@@ -25,15 +26,24 @@ func (h *CreatePostService) Run(req *post.CreatePostReq) (resp *post.CreatePostR
 		hlog.CtxInfof(h.Context, "req = %+v", req)
 		hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	}()
-	// todo edit your code
+
 	p := query.Post
 	po := &model.Post{
 		Title:   req.Post.Title,
 		Content: req.Post.Content,
 	}
+	// generate 10-digit random number
+	po.ID = uint(rand.Intn(9000000000) + 1000000000)
 	err = p.WithContext(h.Context).Create(po)
 	if err != nil {
 		return nil, err
+	}
+	resp = &post.CreatePostResp{
+		Post: &post.Post{
+			Id:      int64(po.ID),
+			Title:   po.Title,
+			Content: po.Content,
+		},
 	}
 	return
 }
